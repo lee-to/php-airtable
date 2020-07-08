@@ -1,6 +1,8 @@
 # AirTable API client for PHP
 
 [![Build Status](https://img.shields.io/travis/lee-to/php-airtabl/5.x.svg)](https://travis-ci.org/github/lee-to/php-airtable)
+[![Total Downloads](https://poser.pugx.org/lee-to/php-airtable/downloads)](//packagist.org/packages/lee-to/php-airtable)
+[![License](https://poser.pugx.org/lee-to/php-airtable/license)](//packagist.org/packages/lee-to/php-airtable)
 
 AirTable API client for PHP
 
