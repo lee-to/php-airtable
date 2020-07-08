@@ -15,7 +15,6 @@ class ClientTest extends TestCase
            );
        } else {
            require_once "AirTableTestCredentials.php";
-           require_once __DIR__ . '/../src/AirTable/autoload.php';
        }
 
        if (!strlen(AirTableTestCredentials::$token) || !strlen(AirTableTestCredentials::$base) || !strlen(AirTableTestCredentials::$table) || !strlen(AirTableTestCredentials::$testColumn)) {
