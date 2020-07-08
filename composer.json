@@ -1,0 +1,39 @@
+{
+  "name": "lee-to/php-airtable",
+  "description": "AirTable API client for PHP",
+  "keywords": ["airtable", "api"],
+  "type": "library",
+  "homepage": "https://github.com/lee-to/php-airtable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Danil Shutsky",
+      "email": "leetodev@ya.ru",
+      "homepage": "https://github.com/lee-to"
+    }
+  ],
+  "require": {
+    "php": "^7.1",
+    "ext-curl": "*",
+    "ext-json": "*",
+    "guzzlehttp/guzzle": "~6.0",
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0",
+    "mockery/mockery": "^1.0",
+    "guzzlehttp/guzzle": "~6.0"
+  },
+  "suggest": {
+    "guzzlehttp/guzzle": "Allows for implementation of the Guzzle HTTP client"
+  },
+  "autoload": {
+    "psr-4": {
+      "AirTable\\": "src/AirTable/"
+    },
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "AirTable\\Tests\\": "tests/"
+    }
+  },
+}
