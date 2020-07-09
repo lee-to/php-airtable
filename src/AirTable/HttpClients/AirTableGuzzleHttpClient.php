@@ -3,12 +3,15 @@
 namespace AirTable\HttpClients;
 
 
+use AirTable\Exceptions\AirTableAuthorizationException;
 use AirTable\Exceptions\AirTableBadApiRequestEntityException;
+use AirTable\Exceptions\AirTableNotFoundException;
 use AirTable\Exceptions\AirTableRequestException;
 use AirTable\HttpClients\Interfaces\AirTableHttpClientInterface;
 use AirTable\Responses\RawResponse;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 
 /**
@@ -21,6 +24,7 @@ class AirTableGuzzleHttpClient implements AirTableHttpClientInterface
      * @var Client
      */
     protected $client;
+
 
     /**
      * AirTableGuzzleHttpClient constructor.
@@ -48,7 +52,6 @@ class AirTableGuzzleHttpClient implements AirTableHttpClientInterface
     }
 
 
-
     /**
      * @param $url
      * @param $method
@@ -57,9 +60,10 @@ class AirTableGuzzleHttpClient implements AirTableHttpClientInterface
      * @return \Psr\Http\Message\StreamInterface
      * @throws AirTableBadApiRequestEntityException
      * @throws AirTableRequestException
-     * @throws AirTable\Exceptions\AirTableAuthorizationException
-     * @throws AirTable\Exceptions\AirTableNotFoundException
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws AirTableAuthorizationException
+     * @throws AirTableNotFoundException
+     * @throws RequestException
+     * @throws GuzzleException
      */
     public function send($url, $method, $body, array $headers)
     {

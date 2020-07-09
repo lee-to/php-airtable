@@ -3,6 +3,9 @@
 namespace AirTable\HttpClients;
 
 
+use AirTable\Exceptions\AirTableAuthorizationException;
+use AirTable\Exceptions\AirTableBadApiRequestEntityException;
+use AirTable\Exceptions\AirTableNotFoundException;
 use AirTable\Exceptions\AirTableRequestException;
 use AirTable\HttpClients\Interfaces\AirTableHttpClientInterface;
 use AirTable\Responses\RawResponse;
@@ -28,7 +31,7 @@ class AirTableCurlHttpClient implements AirTableHttpClientInterface
     }
 
     /**
-     * @return $client
+     * @return mixed
      */
     public function getClient()
     {
@@ -67,9 +70,9 @@ class AirTableCurlHttpClient implements AirTableHttpClientInterface
      * @param array $headers
      * @return mixed
      * @throws AirTableRequestException
-     * @throws AirTable\Exceptions\AirTableAuthorizationException
-     * @throws AirTable\Exceptions\AirTableBadApiRequestEntityException
-     * @throws AirTable\Exceptions\AirTableNotFoundException
+     * @throws AirTableNotFoundException
+     * @throws AirTableAuthorizationException
+     * @throws AirTableBadApiRequestEntityException
      */
     public function send($url, $method, $body, array $headers)
     {

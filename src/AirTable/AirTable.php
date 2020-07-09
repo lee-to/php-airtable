@@ -2,8 +2,6 @@
 
 namespace AirTable;
 
-use Exception;
-
 /**
  * Class AirTable
  * @package AirTable
@@ -26,7 +24,7 @@ final class AirTable
     protected $table = "";
 
     /**
-     * @var ClientInterface
+     * @var Client
      */
     protected $client;
 
@@ -38,40 +36,15 @@ final class AirTable
 
     /**
      * AirTable constructor.
-     * @param array $config [configuration]
-     *     @option string  token [api token]
-     *     @option string  base [api base]
-     *     @option string  http_client [http client]
-     * @throws Exception
+     * @param string $token
+     * @param string $base
+     * @param string|null $handler
      */
-    public function __construct(array $config = [])
+    public function __construct(string $token, string $base, string $handler = "")
     {
-        $this->configuration($config);
-    }
-
-
-    /**
-     * @param array $config [configuration]
-     *     @option string  token [api token]
-     *     @option string  base [api base]
-     *     @option string  http_client [http client]
-     * @throws Exception
-     */
-    private function configuration(array $config) : void {
-        if(!isset($config["token"])) {
-            throw new Exception("Token is required");
-        }
-
-        if(!isset($config["base"])) {
-            throw new Exception("Base id is required");
-        }
-
-        $this->setToken($config["token"]);
-        $this->setBase($config["base"]);
-
-        if(isset($config["http_client"])) {
-            $this->setHttpClient($config["http_client"]);
-        }
+        $this->setToken($token);
+        $this->setBase($base);
+        $this->setHttpClient($handler);
     }
 
     /**
@@ -133,22 +106,25 @@ final class AirTable
     /**
      * @return Client
      */
-    protected function getClient() : ClientInterface {
+    protected function getClient() : Client {
         return $this->client;
     }
 
+
     /**
-     * return void
+     * @throws \AirTable\Exceptions\AirTableException
      */
     private function initClient() : void {
         $this->client = new Client($this->getToken(), $this->getBase(), $this->getTable(), $this->getHttpClient());
     }
 
+
     /**
      * @param string $table
      * @return Client
+     * @throws /\AirTable\Exceptions\AirTableException
      */
-    public function table(string $table) : ClientInterface {
+    public function table(string $table) : Client {
         $this->setTable($table);
 
         $this->initClient();

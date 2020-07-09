@@ -41,7 +41,7 @@ class Request implements RequestInterface
      * Request constructor.
      * @param string|null $handler
      * @param int|null $rateLimit
-     * @throws \Exception
+     * @throws \AirTable\Exceptions\AirTableException
      */
     public function __construct(string $handler = null, int $rateLimit = null)
     {

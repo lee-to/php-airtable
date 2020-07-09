@@ -24,11 +24,11 @@ use Airtable;
 ```
 
 ### Init.
-- optional param @http_client = "curl" or "guzzle". Default guzzle if exist or curl
+- optional param $http_client = "curl" or "guzzle". Default guzzle if exist or curl
 
 ```php
 
-$client = new AirTable(["token" => "", "base" => "", "http_client" => ""]);
+$client = new AirTable($token, $base, $http_client);
 ```
 
 #### Get records from that table

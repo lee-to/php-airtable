@@ -3,6 +3,7 @@
 namespace AirTable;
 
 
+use AirTable\Exceptions\AirTableException;
 use AirTable\Models\Interfaces\RecordInterface;
 use AirTable\Models\Interfaces\TableInterface;
 use AirTable\Responses\ResponseRecord;
@@ -17,14 +18,12 @@ use AirTable\Responses\ResponseTable;
  * @method Client pageSize(int $pageSize)
  * @method Client offset(string $offset)
  * @method Client maxRecords(int $maxRecords)
- *
- * @mixin Client
  */
 
 class Client implements ClientInterface
 {
     /**
-     * @var ApiInterface
+     * @var Api
      */
     protected $api;
 
@@ -33,12 +32,14 @@ class Client implements ClientInterface
      */
     protected $requests;
 
+
     /**
      * Client constructor.
      * @param string $token
      * @param string $base
      * @param string $table
      * @param string|null $handler
+     * @throws \AirTable\Exceptions\AirTableException
      */
     public function __construct(string $token, string $base, string $table, string $handler = null)
     {
@@ -46,8 +47,10 @@ class Client implements ClientInterface
         $this->setRequests($handler);
     }
 
+
     /**
      * @param string $handler
+     * @throws \AirTable\Exceptions\AirTableException
      */
     protected function setRequests(string $handler) : void
     {
@@ -55,13 +58,15 @@ class Client implements ClientInterface
         $this->requests->setHeaders($this->getApi()->getHeaders());
     }
 
+
     /**
-     * @return Request
+     * @return RequestInterface
      */
     protected function getRequests() : RequestInterface
     {
         return $this->requests;
     }
+
 
     /**
      * @param string $token
@@ -73,13 +78,15 @@ class Client implements ClientInterface
         $this->api = new Api($token, $base, $table);
     }
 
+
     /**
      * @return Api
      */
-    protected function getApi() : ApiInterface
+    protected function getApi() : Api
     {
         return $this->api;
     }
+
 
     /**
      * @param string $id
@@ -93,7 +100,7 @@ class Client implements ClientInterface
     }
 
     /**
-     * @return TableInterface
+     * @return TableInterface|RecordInterface[]
      */
     public function list() : TableInterface
     {
@@ -103,6 +110,7 @@ class Client implements ClientInterface
 
         return $response->getResponse();
     }
+
 
     /**
      * @param array $data
@@ -114,6 +122,7 @@ class Client implements ClientInterface
 
         return $response->getResponse();
     }
+
 
     /**
      * @param string $id
@@ -138,17 +147,21 @@ class Client implements ClientInterface
         return $response->getResponse();
     }
 
+
     /**
      * @param $name
      * @param $arguments
      * @return $this
+     * @throws AirTableException
      */
     public function __call($name, $arguments)
     {
         if(method_exists($this->getApi(), $name)) {
             call_user_func_array([$this->getApi(), $name], $arguments);
-        }
 
-        return $this;
+            return $this;
+        } else {
+            throw new AirTableException("Airtable API method not found");
+        }
     }
 }

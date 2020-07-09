@@ -8,6 +8,15 @@ use AirTable\AirTable;
 
 class ClientTest extends TestCase
 {
+
+    public function testExclude() {
+        $this->assertTrue(true);
+    }
+
+    /**
+    * @group api-call
+     * @throws AirTableApiException
+    */
    public function testClient() {
        if (!file_exists(__DIR__ . '/AirTableTestCredentials.php')) {
            throw new AirTableApiException(
@@ -23,7 +32,7 @@ class ClientTest extends TestCase
            );
        }
 
-       $client = new AirTable(["token" => AirTableTestCredentials::$token, "base" => AirTableTestCredentials::$base]);
+       $client = new AirTable(AirTableTestCredentials::$token, AirTableTestCredentials::$base);
 
        $records = $client->table(AirTableTestCredentials::$table)->list();
 
@@ -35,7 +44,7 @@ class ClientTest extends TestCase
 
        $newRow = $client->table(AirTableTestCredentials::$table)->create([AirTableTestCredentials::$testColumn => AirTableTestCredentials::$testColumn]);
 
-       $this->assertEquals($newRow->{AirTableTestCredentials::$testColumn }, AirTableTestCredentials::$testColumn);
+       $this->assertEquals($newRow->{AirTableTestCredentials::$testColumn}, AirTableTestCredentials::$testColumn);
 
        $records = $client->table(AirTableTestCredentials::$table)
            ->fields([AirTableTestCredentials::$testColumn])

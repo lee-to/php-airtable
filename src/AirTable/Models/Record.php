@@ -4,8 +4,8 @@ namespace AirTable\Models;
 
 
 use AirTable\ClientInterface;
+use AirTable\Exceptions\AirTableException;
 use AirTable\Models\Interfaces\RecordInterface;
-use Exception;
 
 /**
  * Class Record
@@ -115,20 +115,20 @@ class Record extends Model implements RecordInterface
      * @return RecordInterface
      */
     public function update(array $data = []) : RecordInterface {
-        return $this->client->update($this->getId(), $data);
+        return $this->getClient()->update($this->getId(), $data);
     }
 
     /**
      * @return RecordInterface
      */
     public function delete() : RecordInterface {
-        return $this->client->delete($this->getId());
+        return $this->getClient()->delete($this->getId());
     }
 
     /**
      * @param string $name
      * @return mixed
-     * @throws \Exception
+     * @throws AirTableException
      */
     public function __get($name)
     {
@@ -137,7 +137,7 @@ class Record extends Model implements RecordInterface
         if(isset($fields[$name])) {
             return $fields[$name];
         } else {
-            throw new Exception('Field not exist: ' . $name);
+            throw new AirTableException('Field not exist: ' . $name);
         }
     }
 

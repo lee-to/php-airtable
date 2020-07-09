@@ -12,4 +12,6 @@ interface RecordInterface
     public function update(array $data = []) : RecordInterface;
 
     public function delete() : RecordInterface;
+
+    public function isDeleted() : bool;
 }
