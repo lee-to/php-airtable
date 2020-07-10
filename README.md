@@ -145,6 +145,10 @@ foreach($client->table('table_name')->list() as $record) {
 $ ./vendor/bin/phpunit
 ```
 
+## See also
+
+- [Laravel Airtable] (https://github.com/lee-to/laravel-airtable)
+
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
