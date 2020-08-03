@@ -346,16 +346,4 @@ class Api implements ApiInterface
             "offset" => $this->getOffset()
         ];
     }
-
-    /**
-     * @return array
-     */
-    public function getHeaders() : array {
-        $headers = [
-            'Authorization' => "Bearer {$this->getToken()}",
-            'content-type' => 'application/json',
-        ];
-
-        return $headers;
-    }
 }

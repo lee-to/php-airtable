@@ -3,6 +3,8 @@
 namespace AirTable;
 
 
+use AirTable\Auth\AuthInterface;
+use AirTable\Auth\BearerAuth;
 use AirTable\Exceptions\AirTableException;
 use AirTable\Models\Interfaces\RecordInterface;
 use AirTable\Models\Interfaces\TableInterface;
@@ -28,6 +30,11 @@ class Client implements ClientInterface
     protected $api;
 
     /**
+     * @var AuthInterface
+     */
+    protected $auth;
+
+    /**
      * @var RequestInterface
      */
     protected $requests;
@@ -43,8 +50,25 @@ class Client implements ClientInterface
      */
     public function __construct(string $token, string $base, string $table, string $handler = null)
     {
+        $this->setAuth(new BearerAuth($token));
         $this->setApi($token, $base, $table);
         $this->setRequests($handler);
+    }
+
+    /**
+     * @return AuthInterface
+     */
+    protected function getAuth(): AuthInterface
+    {
+        return $this->auth;
+    }
+
+    /**
+     * @param AuthInterface $auth
+     */
+    protected function setAuth(AuthInterface $auth): void
+    {
+        $this->auth = $auth;
     }
 
 
@@ -55,7 +79,7 @@ class Client implements ClientInterface
     protected function setRequests(string $handler) : void
     {
         $this->requests = new Request($handler, $this->getApi()->getRateLimit());
-        $this->requests->setHeaders($this->getApi()->getHeaders());
+        $this->requests->setHeaders($this->getAuth()->getHeaders());
     }
 
 
