@@ -1,10 +1,11 @@
 <?php
 
-namespace AirTable;
+namespace AirTable\Requests;
 
 
 use AirTable\HttpClients\AirTableHttpClientFactory;
 use AirTable\HttpClients\Interfaces\AirTableHttpClientInterface;
+use AirTable\Requests\Interfaces\RequestInterface;
 
 /**
  * Class Request

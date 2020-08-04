@@ -8,6 +8,8 @@ use AirTable\Auth\BearerAuth;
 use AirTable\Exceptions\AirTableException;
 use AirTable\Models\Interfaces\RecordInterface;
 use AirTable\Models\Interfaces\TableInterface;
+use AirTable\Requests\Interfaces\RequestInterface;
+use AirTable\Requests\Request;
 use AirTable\Responses\ResponseRecord;
 use AirTable\Responses\ResponseTable;
 

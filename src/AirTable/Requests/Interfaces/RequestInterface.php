@@ -1,6 +1,6 @@
 <?php
 
-namespace AirTable;
+namespace AirTable\Requests\Interfaces;
 
 
 interface RequestInterface
